@@ -59,11 +59,12 @@ public class DbService {
   }
 
   public static String converteJsonEmString(BufferedReader buffereReader) throws IOException {
-    String resposta, jsonEmString = "";
+    String resposta;
+    StringBuilder jsonEmString = new StringBuilder();
     while ((resposta = buffereReader.readLine()) != null) {
-      jsonEmString += resposta;
+      jsonEmString.append(resposta);
     }
-    return jsonEmString;
+    return jsonEmString.toString();
   }
 
 

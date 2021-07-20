@@ -46,15 +46,44 @@
   <div class="row" th:each="repository : ${repositories}">
     <div class="col-md-10 col-lg-8">
       <div class="post-preview"><a href="#" th:target="_blank" th:href="${repository.htmlUrl}">
-        <h2 class="post-title" th:text="${repository.name} + ' (' + ${repository.language} + ')'">Angular-api</h2>
+        <h2 class="post-title" th:text="${repository.name} + ' (' + ${repository.language} + ')'">
+          Angular-api</h2>
         <h3 class="post-subtitle" th:text="${repository.description}">Java project</h3>
       </a>
-        <h5 class="post-subtitle" th:text="${repository.htmlUrl}">https://github.com/murilonerdx</h5>
-        <p class="post-meta">git clone <a href="#" th:text="${repository.cloneUrl}">git clone https://github.com/murilonerdx</a></p>
+        <h5 class="post-subtitle" th:text="${repository.htmlUrl}">
+          https://github.com/murilonerdx</h5>
+        <p class="post-meta">git clone <a href="#" th:text="${repository.cloneUrl}">git clone
+          https://github.com/murilonerdx</a></p>
       </div>
       <hr>
     </div>
+
   </div>
+
+  <!-- customers pagination -->
+  <nav aria-label="Pagination" th:if="${customers.totalPages gt 0}">
+    <ul class="pagination justify-content-center font-weight-bold">
+      <li class="page-item" th:classappend="${customers.number eq 0} ? 'disabled'">
+        <a class="page-link"
+           th:href="@{/?page={id}(id=${customers.number lt 2 ? 1 : customers.number})}"
+           aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item" th:classappend="${i eq customers.number + 1} ? 'active'"
+          th:each="i : ${#numbers.sequence( 1, customers.totalPages, 1)}">
+        <a class="page-link" th:href="@{/?page={id}(id=${i})}" th:text="${i}"
+           th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+      </li>
+      <li class="page-item" th:classappend="${customers.number + 1 eq customers.totalPages} ? 'disabled'">
+        <a class="page-link"
+           th:href="@{/?page={id}(id=${customers.number + 2})}"
+           aria-label="Next" title="Next Page" data-toggle="tooltip">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
   <footer>
     <div class="container">
       <div class="row">
@@ -74,6 +103,7 @@
       </div>
     </div>
   </footer>
+
   <script src="../static/js/bootstrap.min.js" th:href="@{/js/bootstrap.min.js}"></script>
   <script src="../static/js/clean-blog.js" th:href="@{/js/clean-blog.js}"></script>
 </body>
