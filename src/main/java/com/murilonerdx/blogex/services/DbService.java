@@ -48,8 +48,7 @@ public class DbService {
           new InputStreamReader((conexao.getInputStream())));
       String jsonEmString = converteJsonEmString(resposta);
 
-      Type listType = new TypeToken<ArrayList<GitInfoDTO>>() {
-      }.getType();
+      Type listType = new TypeToken<ArrayList<GitInfoDTO>>() {}.getType();
       List<GitInfoDTO> repositories = new Gson().fromJson(jsonEmString, listType);
       repositories.forEach(x -> this.myRepositories.add(new GitInfo(x)));
       repository.saveAll((myRepositories));
