@@ -3,8 +3,8 @@ package com.murilonerdx.blogex.services;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.murilonerdx.blogex.entities.ProjectGithub;
-import com.murilonerdx.blogex.entities.GithubInfo;
+import com.murilonerdx.blogex.entities.GitInfo;
+import com.murilonerdx.blogex.entities.GitInfoDTO;
 import com.murilonerdx.blogex.repository.GithubInfoRepository;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DbService {
 
-  List<ProjectGithub> myRepositories = new LinkedList<>();
+  List<GitInfo> myRepositories = new LinkedList<>();
 
   private final GithubInfoRepository repository;
 
@@ -48,10 +48,10 @@ public class DbService {
           new InputStreamReader((conexao.getInputStream())));
       String jsonEmString = converteJsonEmString(resposta);
 
-      Type listType = new TypeToken<ArrayList<GithubInfo>>() {
+      Type listType = new TypeToken<ArrayList<GitInfoDTO>>() {
       }.getType();
-      List<GithubInfo> repositories = new Gson().fromJson(jsonEmString, listType);
-      repositories.forEach(x -> this.myRepositories.add(new ProjectGithub(x)));
+      List<GitInfoDTO> repositories = new Gson().fromJson(jsonEmString, listType);
+      repositories.forEach(x -> this.myRepositories.add(new GitInfo(x)));
       repository.saveAll((myRepositories));
     } catch (Exception e) {
       throw new Exception("ERRO: " + e);

@@ -23,7 +23,7 @@ import org.hibernate.Hibernate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ProjectGithub {
+public class GitInfo {
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
   private Long id;
@@ -36,7 +36,7 @@ public class ProjectGithub {
   private String language;
   private String updatedAt;
 
-  public ProjectGithub(GithubInfo github) {
+  public GitInfo(GitInfoDTO github) {
     this.id = null;
     this.language = github.getLanguage();
     this.nodeId = github.getNode_id();
@@ -59,7 +59,7 @@ public class ProjectGithub {
     if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
       return false;
     }
-    ProjectGithub article = (ProjectGithub) o;
+    GitInfo article = (GitInfo) o;
 
     return id != null && id.equals(article.id);
   }
@@ -71,7 +71,7 @@ public class ProjectGithub {
 
 
   @SneakyThrows
-  public int compareTo(ProjectGithub element) {
+  public int compareTo(GitInfo element) {
     SimpleDateFormat dateFormat = new SimpleDateFormat();
     Date date1 = dateFormat.parse(this.updatedAt);
     Date date2 = dateFormat.parse(element.updatedAt);

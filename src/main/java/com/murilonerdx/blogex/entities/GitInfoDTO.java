@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GithubInfo {
+public class GitInfoDTO {
   private String id;
   private String node_id;
   private String name;
