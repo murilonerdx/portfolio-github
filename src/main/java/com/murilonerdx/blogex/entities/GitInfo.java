@@ -48,6 +48,7 @@ public class GitInfo {
     this.updatedAt = github.getUpdated_at();
   }
 
+
   @JsonFormat(pattern="dd/MM/yyyy")
   private LocalDate date;
 
@@ -84,6 +85,8 @@ public class GitInfo {
     }
     return res;
   }
+
+
 
 
 }

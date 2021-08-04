@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DbService {
 
+  public final String MY_URL = "https://api.github.com/users/murilonerdx/repos";
+
   List<GitInfo> myRepositories = new LinkedList<>();
 
   private final GithubInfoRepository repository;
@@ -34,10 +36,9 @@ public class DbService {
   @Bean
   public void instantiateTestDatabase() throws Exception {
 
-    String myUrl = "https://api.github.com/users/murilonerdx/repos";
 
     try {
-      URL url = new URL(myUrl);
+      URL url = new URL(MY_URL);
       HttpURLConnection conexao = (HttpURLConnection) url.openConnection();
 
       if (conexao.getResponseCode() != 200) {

@@ -1,8 +1,15 @@
 package com.murilonerdx.blogex.controller;
 
+import com.murilonerdx.blogex.entities.GitInfo;
 import com.murilonerdx.blogex.services.GithubInfoService;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,13 +39,20 @@ public class GithubInfoController {
     }
 
     model.addAttribute("customers", service.getPaginatedGitInfos(PageRequest.of(page, size)));
-    model.addAttribute("repositories",  service.getPaginatedGitInfos(PageRequest.of(page, size)));
+    Page<GitInfo> paginatedGitInfos = service.getPaginatedGitInfos(PageRequest.of(page, size));
+    List<GitInfo> content = paginatedGitInfos.getContent().stream().peek(x->{
+      if(x.getLanguage() == null){
+        x.setLanguage("FORKED");
+        x.setDescription("Project forked for studies");
+      }
+    }).collect(Collectors.toList());;
+    model.addAttribute("repositories", content);
 
     return "index";
   }
 
   @GetMapping("/about")
-  public String redirectAboutMe(){
+  public String redirectAboutMe() {
     return "about";
   }
 
